@@ -11,19 +11,15 @@ pipeline {
 		stage ("build") {
 			steps {
 				echo "Docker image building..."
-				script {
-					dockerInstance = docker.build(imageName)
-				}
+				dockerInstance = docker.build(imageName)
 			}
 		}
 		stage ("publish") {
 			steps {
 				echo "Publishing to Docker Hub..."
-				script {
-					docker.withRegistry('', registryCredentialSet) {
-						dockerInstance.push("${env.BUILD_NUMBER}")
-						dockerInstance.push("latest")
-					}
+				docker.withRegistry('', registryCredentialSet) {
+					dockerInstance.push("${env.BUILD_NUMBER}")
+					dockerInstance.push("latest")
 				}
 				echo "Published !"
 			}
