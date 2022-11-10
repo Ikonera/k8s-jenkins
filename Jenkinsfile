@@ -32,7 +32,10 @@ pipeline {
 
 		stage ("deploy") {
 			steps {
-				echo "Wait to deploy to Kubernetes..."
+				echo "Deploying to kubernetes..."
+				script {
+					kubernetesDeploy(configs: "app.yaml", kubeconfigId: "kubernetes")
+				}
 			}
 		}
 	}
