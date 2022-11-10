@@ -11,6 +11,7 @@ pipeline {
 		stage ("build") {
 			steps {
 				echo "Docker image building..."
+				sh("docker version")
 				script {
 					dockerInstance = docker.build(imageName)
 				}
